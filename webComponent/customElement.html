@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <my-element label='he Yubble'>123123</my-element>
+    <button is="button-hello">自定义hello按钮</button>
+    <script>
+        class MyElement extends HTMLElement {
+            // called when element created
+            constructor() {
+                super();
+                //方法在整个生命周期中只会被触发一次。可以在这里初始化一些变量
+                console.log('构造函数执行')
+            }
+            // return an array of the attribute names you want to watch for changes
+            observedAttributes() {
+                console.log('元素属性')
+                // 在这里返回自定义元素的属性
+                return ['label'];
+            }
+            
+            get label() {
+                console.log('get label')
+                this.getAttribute('label') || '';
+            }
+            
+            set label(value) {
+                console.log('set label is ', value)
+                this.setAttribute('label', value);
+            }
+            
+            // called when the element is added to the DOM
+            connectedCallback() {
+                //当组件被加到DOM上，或者节点在节点树中移动是，会被触发。
+                console.log('加载到DOM上')
+            }
+            // called when the element is removed from the DOM
+            disconnectedCallback() {
+                //当组件被从DOM上移除时触发。如果在connectedCallback中监听了事件，就一定要在这里把它移出
+                console.log('从DOM上被移除')
+            }
+            // called when attribute changed
+            attributeChangedCallback(name, oldValue, newValue) {
+                //当组件的attribute改变时，会被触发
+                console.log('组件的attr被修改')
+            }
+        }
+
+        // 创建了一个my-element的标签
+        customElements.define('my-element', MyElement);
+
+        // 定制一个内质元素
+        class PlasticButton extends HTMLButtonElement {
+            constructor() {
+                super();
+            
+                console.log("构造了按钮")
+                this.addEventListener("click", () => {
+                    alert('hello world')
+                });
+            }
+        }
+        // 使用这个内质元素
+        customElements.define("button-hello", PlasticButton, { extends: "button" })
+    </script>
+</body>
+</html>
