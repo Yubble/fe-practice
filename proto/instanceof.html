@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function C() {}
+        function D() {}
+        var c = new C()
+        console.log(`———— 构造函数C的原型是否在对象c的原型链上：${c instanceof C}，对象c的原型对象与构造函数C的原型对象比较：${c.__proto__ === C.prototype} ————`)
+        console.log(`———— 构造函数D的原型是否在对象c的原型链上：${c instanceof D}，对象c的原型对象与构造函数D的原型对象比较：${c.__proto__ === D.prototype} ————`)
+        console.log(`____ 构造函数Object的原型是否在对象c的原型链上：${c instanceof Object}，对象c的原型对象的父级原型对象与构造函数Object的原型对象比较：${c.__proto__.__proto__ === Object.prototype} ____`)
+        /**
+         * 结论：instanceOf完全是对象的原型或父级原型和构造函数的原型在比较（c.__proto__ compare C.prototype）
+         * 所以，其实instanceof就是c对象逐层的原型在和一个构造函数的原型进行比较的语法糖
+         * 通常用作判断一个对象是否是一个构造函数的实例
+         * */
+
+        C.prototype = {}
+        var c2 = new C()
+        console.log(`———— 判断改造构造函数C原型地址后，是否在新实例化对象c2的原型链上：${c2 instanceof C} ————`)
+        console.log(`———— 判断修改构造函数C原型地址后，其是否还在之前实例化出的对象c的原型链上：${c instanceof C} ————`)
+        /**
+         * 结论：如果将构造函数的地址改变了，那么和之前实例化过的对象的原型地址就切断了，所以再instanceof就找不到
+        */
+    </script>
+</body>
+</html>
