@@ -1,0 +1,43 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-09-16 15:01:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.name = 'ByteDance';
+
+        function Foo (name) {
+        this.name = name || 'foo';
+        }
+
+        Foo.prototype.getName = function(){
+            return this.name + 1;
+        }
+        Foo.prototype.getName2 = () => {
+            return this.name + 1;
+        }
+        let foo = new Foo();
+        let getName = foo.getName;
+        let getName2 = foo.getName2;
+
+        console.log(getName()); ByteDance1
+        console.log(getName2()); ByteDance1
+        console.log(foo.getName()); foo1
+        console.log(foo.getName2()); ByteDance1
+        console.log(getName.call(Foo)); Foo1    // 构造函数会有个默认.name属性为函数名
+        console.log(getName2.call(Foo)); ByteDance1
+        console.log(getName.call(foo)); foo1
+        console.log(getName2.call(foo)); ByteDance1
+    </script>
+</body>
+</html>
