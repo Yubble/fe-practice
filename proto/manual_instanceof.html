@@ -1,0 +1,37 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-09-25 22:12:47
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const mInstanceOf = (left, right) => {
+      let proto = left.__proto__
+      let result = false
+
+      while(proto) {
+        if (right.prototype === proto) {
+          return true
+        } else {
+          proto = proto.__proto__
+        }
+      }
+
+      return false
+    }
+
+    console.log('[] compare Array ', mInstanceOf([], Array))
+    console.log('{} compare Object ', mInstanceOf({}, Object))
+    console.log('{} compare Array ', mInstanceOf({}, Array))
+  </script>
+</body>
+</html>

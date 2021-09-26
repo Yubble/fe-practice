@@ -1,0 +1,48 @@
+<!--
+ * @Name: 
+ * @Description: 记录创建构造函数的几种方法
+ * @Author: 刘燕保
+ * @Date: 2021-09-26 19:40:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Contruct (name) {
+      this.name = name
+    }
+
+    function create1(Con, ...args) {
+      let obj = {}
+      Object.setPrototypeOf(obj, Con.prototype)
+      let result = Con.apply(obj, args)
+      return result instanceof Object ? result : obj
+    }
+
+    const con0 = new Contruct('妮妮')
+    console.log('con0 name is ', con0.name)
+    const con1 = create1(Contruct, '太郎')
+    console.log('con1 name is ', con1.name)
+
+    // 后记，函数如果返回的一个对象，则使用new关键字调用会直接将对象返回
+    function create2(age) {
+      this.age = age
+
+      // new 关键字后会返回这个对象
+      // return {
+      //   lol: 123
+      // }
+
+      // return 888 // new 关键字后不会返回888
+    }
+    const spe0 = new create2(1)
+    console.log('spe0 is ', spe0)
+  </script>
+</body>
+</html>
