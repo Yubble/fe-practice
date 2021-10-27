@@ -1,0 +1,48 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-10-24 21:50:52
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 硬币找零，关键base case是0，不用考虑
+    // 思路：三个面值，1、2、5，如需算出最少硬币数则从最大面值开始算，如需算出最多硬币数则从最小面值开始算
+
+    const coinChange = k => {
+      let sum = 0
+
+      if (k === 4) return 2
+      if (k === 3) return 2
+      if (k === 2) return 1
+      if (k === 1) return 1
+      if (k === 0) return 0
+
+      const y5 = k % 5
+      if (y5) {
+        const y2 = y5 % 2
+        if (y2) {
+          sum += y2
+        } else {
+          sum += y5 / 2
+        }
+      }
+
+      sum += Math.floor(k / 5)
+      return sum
+    }
+
+    const cc_res = coinChange(82)
+
+    console.log('--- cc_res is ---', cc_res)
+  </script>
+</body>
+</html>

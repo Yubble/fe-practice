@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-08-15 12:31:36
- * @LastEditTime: 2021-08-15 13:17:37
+ * @LastEditTime: 2021-10-24 19:56:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /fe-test/fe-practice/arithmetic/sort-.html
@@ -17,7 +17,7 @@
 <body>
     <script>
         // 取出下面数组中能连成顺序的有哪些
-        const arr = [400, 4, 10, 46, 13, 24, 100, 1, 27, 72, 3, 2, 15, 18, 39, 22]
+        const arr = [400, 4, 10, 46, 13, 23, 100, 1, 27, 72, 3, 2, 15, 18, 39, 22]
 
         let temp1 = ''
         let temp2 = ''
@@ -34,17 +34,6 @@
         resArr = Array.from(new Set(resArr)).sort()
 
         console.log(resArr)
-
-        // arr.reduce((pre, cur, i) => {
-        //     console.log('pre is ', pre)
-        //     console.log('cur is ', cur)
-        //     console.log('------ 当前对比差距： ------', Math.abs(pre - cur))
-        //     if (Math.abs(pre - cur) <= 1) {
-        //         console.log('------- 这两个是相邻的 ------')
-        //     }
-        //     return arr[i]
-        // })
-
         
     </script>
 </body>

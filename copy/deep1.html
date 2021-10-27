@@ -1,0 +1,60 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-09-28 11:05:17
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const exaObj = {
+      a: 'a',
+      b: 'b',
+      c: {
+        d: 123,
+        fn1: function() {
+          console.log('输出fn1方法')
+        }
+      },
+      fn2() { console.log('输出fn2方法') },
+      __proto__: {
+        p1: 'this is p1',
+        p2: 'it is p2'  
+      }
+    }
+    // console.log('p1 is ', exaObj.p1)
+
+    const exaArr = [
+      'aaaaaa',
+      'bbbbbb',
+      'cccccc'
+    ]
+
+    function deepCopy (source) {
+      if (typeof source !== 'object') return
+      let target = Array.isArray(source) ? [] : {}
+      for (let k in source) {
+        if (source.hasOwnProperty(k)) {   // 为了忽略掉对象原型上的参数
+          if (typeof source[k] === 'object') {
+            target[k] = deepCopy(source[k])
+          } else {
+            target[k] = source[k]
+          }
+        }
+      }
+
+      return target
+    }
+    const newObj = deepCopy(exaObj)
+    console.log(' newObj is ', newObj)
+    // deepCopy(exaArr)
+  </script>
+</body>
+</html>

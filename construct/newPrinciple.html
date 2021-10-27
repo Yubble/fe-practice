@@ -43,6 +43,13 @@
     }
     const spe0 = new create2(1)
     console.log('spe0 is ', spe0)
+
+    // 后记，箭头函数可以作为构造函数吗？ 答案是不能
+    const create3 = sex => {
+      this.sex = sex
+    }
+    const con3 = new create3('man')
+    console.log('con3 sex is ', con3)
   </script>
 </body>
 </html>

@@ -1,0 +1,36 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-10-10 20:27:08
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const myObj = Object.create(null)
+    myObj.a = 'aaa'
+    Object.setPrototypeOf(myObj, {
+      p: 'pppp'
+    })
+    console.log('myObj is ', myObj)
+    // 打印myObj拥有的属性，报错，因为myObj没能继承Object.property中的任何方法
+    // console.log(myObj.hasOwnProperty())
+
+    // 如果执意需要使用hasOwnProperty方法则需要
+    const result = Object.prototype.hasOwnProperty.call(myObj, 'a')
+    console.log('result is ', result) // true
+
+    // const myObjc = Object.create(null)
+    console.log('reflect own is ', Reflect.ownKeys(myObj))
+    console.log('Object keys is ', Object.keys(myObj))
+    // Reflect.ownKeys对比Object.keys要强大，他可以遍历到Obj所有可遍历与不可遍历的属性，但是都遍历不到原型属性
+  </script>
+</body>
+</html>
