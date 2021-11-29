@@ -1,0 +1,78 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-21 21:16:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const data = [
+      {
+        name: 'a',
+        children: [
+          { name: 'b', children: [{ name: 'e' }] },
+          { name: 'c', children: [{ name: 'f' }] },
+          { name: 'd', children: [{ name: 'g' }] }
+        ]
+      },
+      {
+        name: 'a2',
+        children: [
+          { name: 'b2', children: [{ name: 'e2' }] },
+          { name: 'c2', children: [{ name: 'f2' }] },
+          { name: 'd2', children: [{ name: 'g2' }] }
+        ]
+      }
+    ]
+
+    const data2 = [
+      {
+        name: 'b'
+      }
+    ]
+    // 深度遍历, 使用递归
+    /**
+     * 方案解析：遍历一级对象，每遍历到一个节点，查看是否有children节点，如果有，则遍历，并将name都push到result上
+    */
+    function deepFirst(data) {
+      const result = [];
+      data.forEach(item => {
+        const map = data => {
+          result.push(data.name);
+          data.children && data.children.forEach(child => map(child));
+        }
+        map(item);
+      })
+      return result.join(',');
+    }
+
+    function scopeFirst(data) {
+      let result = []
+      let queue = data
+      while(queue.length > 0) {
+        console.log('重新遍历queue')
+        queue.forEach(child => {
+          queue.shift()
+          result.push(child.name)
+          console.log('child is ', child)
+          child.children && (queue.push(...child.children))
+          console.log('queue is ', JSON.stringify(queue))
+        })
+      }
+      return result.join(',')
+    }
+
+    console.log('深度优先结果为：', deepFirst(data))
+    console.log('广度优先结果为：', scopeFirst(data))
+
+  </script>
+</body>
+</html>

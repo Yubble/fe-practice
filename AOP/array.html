@@ -1,0 +1,55 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-24 13:18:05
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const oldArrayMethods = Array.prototype;
+
+    // 创建对象 原型指向oldArrayMethods
+    const arrayMethods = Object.create(oldArrayMethods)
+    console.log('新数组对象：', arrayMethods)
+
+    const methods = [
+        'push',
+        'shift',
+        'unshift',
+        'pop',
+        'reverse',
+        'sort',
+        'splice'
+    ]
+
+    // AOP 切片编程
+    // methods.forEach(methods => {
+    //     arrayMethods[methods] = function (...arg) {
+    //         // 调用Array原型方法
+    //         const res = oldArrayMethods[methods].apply(this, arg)
+
+    //         // push unshift 添加的元素可能还是一个对象
+    //         let inserted; // 单前添加的元素
+    //         switch(methods){
+    //             case 'push':
+    //             case 'unshift':
+    //                 inserted = arg
+    //                 break;
+    //             case 'splice': // arr.splice(0,1,2)
+    //                 inserted = arg[2]
+    //                 break;
+    //         }
+    //         return res
+    //     }
+    // })
+  </script>
+</body>
+</html>

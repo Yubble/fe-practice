@@ -1,0 +1,33 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-24 21:14:26
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // const arrProperty = Array.prototype
+    const res1 = [2423].map(i => {
+      console.log('第一个map方法, i is ', i)
+      return i
+    })
+    console.log('res1 is ', res1)
+    // Array.prototype.map = function () {
+    //   console.log('调用手写map方法')
+    // }
+
+    const arr2 = [342]
+    arr2.forEach(function(i) {
+      console.log('第二个map方法, i is ', i)
+    })
+  </script>
+</body>
+</html>

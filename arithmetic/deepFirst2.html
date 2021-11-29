@@ -1,0 +1,83 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-26 19:19:35
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const tree = [
+      {
+        id: 1,
+        parent: 0,
+        children: [
+          {
+            id: 2,
+            parent: 1
+          },
+          {
+            id: 3,
+            parent: 1,
+            children: [
+              {
+                id: 4,
+                parent: 3
+              },
+              {
+                id: 5,
+                parent: 3
+              },
+              {
+                id: 6,
+                parent: 3,
+                children: [
+                  {
+                    id: 7,
+                    parent: 6,
+                    children: [
+                      {
+                        id: 8,
+                        parent: 7
+                      },
+                      {
+                        id: 9,
+                        parent: 7
+                      }
+                    ]
+                  },
+                  {
+                    id: 10,
+                    parent: 6
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+    // 深度优先
+    const deepResult = []
+    const deepSequence = tree => {
+      tree.forEach((obj) => {
+        deepResult.push(obj.id)
+        if (obj.children) {
+          sequence(obj.children)
+        }
+      })
+      return deepResult
+    }
+
+    console.log('deep sequence is ', deepSequence(tree))
+  </script>
+</body>
+</html>

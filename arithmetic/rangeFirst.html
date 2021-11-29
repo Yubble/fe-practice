@@ -1,0 +1,95 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-26 20:18:08
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const tree = [
+      {
+        id: 1,
+        parent: 0,
+        children: [
+          {
+            id: 2,
+            parent: 1
+          },
+          {
+            id: 3,
+            parent: 1,
+            children: [
+              {
+                id: 5,
+                parent: 3
+              },
+              {
+                id: 6,
+                parent: 3,
+                children: [
+                  {
+                    id: 9,
+                    parent: 6,
+                    children: [
+                      {
+                        id: 11,
+                        parent: 7
+                      },
+                      {
+                        id: 12,
+                        parent: 7
+                      }
+                    ]
+                  },
+                  {
+                    id: 10,
+                    parent: 6
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            id: 4,
+            parent: 1,
+            children: [
+              {
+                id: 7,
+                parent: 3
+              },
+              {
+                id: 8,
+                parent: 3
+              }
+            ]
+          }
+        ]
+      }
+    ]
+
+    // 广度优先
+    const rangeSequence = tree => {
+      const queue = tree
+      const rangeResult = []
+      while(queue.length != 0) {
+        [...queue].forEach(child => { // 每次数组push之后，再次遍历的时候一定要重新赋值一遍，不然循环是找不到之前第二个元素的
+          rangeResult.push(child.id)
+          queue.shift()
+          if (child.children) queue.push(...child.children)
+        })
+      }
+      return rangeResult
+    }
+
+    console.log('rangeSequence is ', rangeSequence(tree))
+  </script>
+</body>
+</html>
