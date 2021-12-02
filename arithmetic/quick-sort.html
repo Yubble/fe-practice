@@ -1,0 +1,46 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-29 20:44:20
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const quickSort = Arr => {
+      if (Arr.length <= 1) {
+        return Arr
+      }
+
+      // 获取中间值下标
+      const pivotIndex = Math.floor(Arr.length / 2)
+      // 提取中间值，并且在原数组中删除这个值
+      const pivot = Arr.splice(pivotIndex, 1)[0]
+      const left = []
+      const right = []
+
+      // 进行左右数组分类，比中间值小的放在左边数组，比中间值大的放在右边
+      for (let i = 0; i < Arr.length; i++) {
+        if (Arr[i] < pivot) {
+          left.push(Arr[i])
+        } else {
+          right.push(Arr[i])
+        }
+      }
+
+      // 继续对左边数组以及右边数组进行递归快排，并使用concat将三个数组连接起来
+      return quickSort(left).concat([pivot], quickSort(right))
+    }
+
+    const res = quickSort([3, 9, 1, 32, 76, 19, 21, 5])
+    console.log(res)
+  </script>
+</body>
+</html>

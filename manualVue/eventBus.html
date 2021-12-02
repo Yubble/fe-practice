@@ -1,0 +1,56 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-11-29 21:43:19
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class EventBus {
+      constructor() {
+        this._event = {}
+      }
+
+      on(event, fn) {
+        if (this._event[event]) {
+          this._event[event].push(fn)
+        } else {
+          this._event[event] = [fn]
+        }
+      }
+
+      emit(event) {
+        if (!this._event[event]) {
+          window.alert('不存在该方法')
+          return
+        }
+
+        this._event[event].forEach(event => {
+          event()
+        })
+      }
+    }
+
+    const eBus = new EventBus()
+    eBus.on('test1', () => {
+      console.log('触发 test1')
+    })
+    eBus.on('test1', () => {
+      console.log('再次触发 test1')
+    })
+    eBus.on('test2', () => {
+      console.log('触发 test2')
+    })
+    eBus.emit('test1')
+    eBus.emit('test2')
+  </script>
+</body>
+</html>
