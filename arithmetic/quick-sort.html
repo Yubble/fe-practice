@@ -14,6 +14,7 @@
 </head>
 <body>
   <script>
+    const sortList = [3, 9, 1, 32, 76, 19, 21, 5]
     const quickSort = Arr => {
       if (Arr.length <= 1) {
         return Arr
@@ -39,8 +40,11 @@
       return quickSort(left).concat([pivot], quickSort(right))
     }
 
-    const res = quickSort([3, 9, 1, 32, 76, 19, 21, 5])
-    console.log(res)
+    const res = quickSort(sortList)
+    console.log('快排结果：', res)
+
+    const sortList1 = [3, 7, 38, 64, 16, 9, 27]
+    console.log('快排2结果为：', quickSort1(sortList1))
   </script>
 </body>
 </html>

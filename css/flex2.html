@@ -1,0 +1,39 @@
+<!--
+ * @Name: 
+ * @Description: 左右布局，一侧定宽，一侧自适应撑满
+ * @Author: 刘燕保
+ * @Date: 2021-12-03 12:28:04
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+    .main {
+      display: flex;
+      height: 100%;
+    }
+    .left,
+    .right {
+      height: 100%;
+      border: 1px solid red;
+      box-sizing: border-box;
+    }
+    .left { width: 300px; }
+    .right { width: 100%; }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="left">固定宽度300px</div>
+    <div class="right">自适应宽度</div>
+  </div>
+</body>
+</html>

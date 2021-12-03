@@ -42,37 +42,52 @@
     /**
      * 方案解析：遍历一级对象，每遍历到一个节点，查看是否有children节点，如果有，则遍历，并将name都push到result上
     */
-    function deepFirst(data) {
-      const result = [];
-      data.forEach(item => {
-        const map = data => {
-          result.push(data.name);
-          data.children && data.children.forEach(child => map(child));
+
+    // function scopeFirst(data) {
+    //   let result = []
+    //   let queue = data
+    //   while(queue.length > 0) {
+    //     queue.forEach(child => {
+    //       queue.shift()
+    //       result.push(child.name)
+    //       child.children && (queue.push(...child.children))
+    //     })
+    //   }
+    //   return result.join(',')
+    // }
+
+    const deepFirst1 = data => {
+      const result = []
+      const dp = data => {
+        for (let d of data) {
+          result.push(d.name)
+          if (d.children) {
+            dp(d.children)
+          }
         }
-        map(item);
-      })
-      return result.join(',');
-    }
-
-    function scopeFirst(data) {
-      let result = []
-      let queue = data
-      while(queue.length > 0) {
-        console.log('重新遍历queue')
-        queue.forEach(child => {
-          queue.shift()
-          result.push(child.name)
-          console.log('child is ', child)
-          child.children && (queue.push(...child.children))
-          console.log('queue is ', JSON.stringify(queue))
-        })
       }
-      return result.join(',')
+      dp(data)
+      return result
     }
 
-    console.log('深度优先结果为：', deepFirst(data))
-    console.log('广度优先结果为：', scopeFirst(data))
+    const rangeFirst1 = data => {
+      const result = []
+      const _data = [...data]
+      while (_data.length) {
+        for (let i of [..._data]) {
+          result.push(i.name)
+          _data.shift()
+          if (i.children) {
+            _data.push(...i.children)
+          }
+        }
+      }
 
+      return result
+    }
+
+    console.log('深度有限1结果为：', deepFirst1(data))
+    console.log('广度优先1结果为：', rangeFirst1(data))
   </script>
 </body>
 </html>
