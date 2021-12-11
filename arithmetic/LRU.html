@@ -1,0 +1,75 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-12-09 18:40:29
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const LRUCache = function(capacity) {
+      this.capacity = capacity
+      this.cache = []
+    }
+
+    LRUCache.prototype.get = function(key) {
+      let el
+      for (let i=0; i<this.cache.length; i++) {
+        if (this.cache[i].key === key) {
+          // 当键值存在时，将键值移到栈顶
+          const tail = this.cache.splice(i, 1)
+          this.cache.push(tail[0])
+
+          return tail[0].val
+        }
+      }
+
+      return -1
+    }
+
+    LRUCache.prototype.put = function(key, value) {
+      const ca = {
+        'key': key,
+        'val': value
+      }
+      // 当缓存中存在键值，更新键值，并将键值放在栈顶
+      for (let i = 0; i < this.cache.length; i++) {
+        if (this.cache[i]['key'] === key) {
+          this.cache[i] = ca
+          let el = this.cache.splice(i, 1)
+          this.cache.push(el[0])
+
+          return null
+        }
+      }
+      // 此时为缓存中没有键值
+      if (this.cache.length < this.capacity) {
+        // 当缓存未满直接入栈
+        this.cache.push(ca)
+      } else {
+        // 当缓存满了，去掉栈底元素，将新元素放在栈顶
+        this.cache.shift()
+        this.cache.push(ca)
+      }
+    }
+
+    const lru = new LRUCache(3)
+    lru.put('wwe', 'w1')
+    lru.put('ffr', 'f2')
+    lru.put('non', 'n3')
+    lru.put('irr', 'i4')
+    const wwe = lru.get('wwe')
+    console.log('wwe is ', wwe)
+    const non = lru.get('non')
+    console.log('non is ', non)
+    console.log('cache is ', lru.cache)
+  </script>
+</body>
+</html>

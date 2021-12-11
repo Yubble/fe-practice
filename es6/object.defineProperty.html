@@ -1,0 +1,38 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-12-05 21:28:22
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const arr = [3, 6, 21, 9, 7]
+    const def = (obj, key, val) => {
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: val => {
+          console.log('读取到了，值为：', val)
+        },
+        set: newVal => {
+          console.log('设置了新值为：', newVal)
+        }
+      })
+    }
+
+    def(arr, 0)
+
+    // arr[0] // 可以监听到数组下表为0的访问
+    // arr.shift()  // 可以监听到，新值为6
+    arr.push(6) // 监听不到变化
+  </script>
+</body>
+</html>

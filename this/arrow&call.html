@@ -1,0 +1,55 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2021-12-07 20:59:37
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+      console.log('outer id is ', this.id)
+      return () => {
+        return () => {
+          return () => {
+            console.log('id is ', this.id)
+          }
+        }
+      }
+    }
+
+    const ctx = {id: 'Yubble'}
+    const f = foo.call(ctx)
+
+    f()().call({id: 'yoxi'}) // Yubble
+    f().call({id: 'yoxi'})() // Yubble
+    f.call({id: 'yoxi'})()() // Yubble  // 不论从哪个节点
+
+    console.log('---------------------------')
+    // 但是，如果从中间截断的话
+    function foo2() {
+      console.log('outer id is ', this.id)
+      return () => {
+        return function () {
+          return () => {
+            console.log('id is ', this.id)
+          }
+        }
+      }
+    }
+
+    const f2 = foo2() // undefined
+    f2.call({id: 'yoxi'})()() // undefined
+    f2().call({id: 'yoxi'})() // yoxi
+    f2()().call({id: 'luna'}) // undefined
+    // 结论，箭头函数和call，apply就没有关系，箭头函数中，this就是定位到代码中作用域内，如果当前作用域没有值，则逐层向上查找，直到查找到普通层级作用域
+  </script>
+</body>
+</html>

@@ -24,14 +24,14 @@
             }
         }
 
-        A.sayHello()
+        A.sayHello()  // window 因为箭头函数会在初始阶段直接写死this指向，到最外层作用域上
 
         const B = {
             name: 'B'
         }
 
-        A.sayHello.call(B)
-        A.sayHello.call()
+        A.sayHello.call(B)  // 箭头函数内部指针是无法通过call或者apply修改的
+        A.sayHello.call() // 同上
     </script>
 </body>
 </html>

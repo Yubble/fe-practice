@@ -15,36 +15,55 @@
 <body>
   <script>
     const sortList = [3, 9, 1, 32, 76, 19, 21, 5]
-    const quickSort = Arr => {
-      if (Arr.length <= 1) {
-        return Arr
-      }
+    // const quickSort = Arr => {
+    //   if (Arr.length <= 1) {
+    //     return Arr
+    //   }
 
-      // 获取中间值下标
-      const pivotIndex = Math.floor(Arr.length / 2)
-      // 提取中间值，并且在原数组中删除这个值
-      const pivot = Arr.splice(pivotIndex, 1)[0]
+    //   // 获取中间值下标
+    //   const pivotIndex = Math.floor(Arr.length / 2)
+    //   // 提取中间值，并且在原数组中删除这个值
+    //   const pivot = Arr.splice(pivotIndex, 1)[0]
+    //   const left = []
+    //   const right = []
+
+    //   // 进行左右数组分类，比中间值小的放在左边数组，比中间值大的放在右边
+    //   for (let i = 0; i < Arr.length; i++) {
+    //     if (Arr[i] < pivot) {
+    //       left.push(Arr[i])
+    //     } else {
+    //       right.push(Arr[i])
+    //     }
+    //   }
+
+    //   // 继续对左边数组以及右边数组进行递归快排，并使用concat将三个数组连接起来
+    //   return quickSort(left).concat([pivot], quickSort(right))
+    // }
+
+
+    const quickSort = list => {
+      if (list.length < 2) { return list }
+
       const left = []
       const right = []
+      const midst = list.splice(Math.floor(list.length / 2), 1)
 
-      // 进行左右数组分类，比中间值小的放在左边数组，比中间值大的放在右边
-      for (let i = 0; i < Arr.length; i++) {
-        if (Arr[i] < pivot) {
-          left.push(Arr[i])
+      for (let e of list) {
+        if (e < midst) {
+          left.push(e)
         } else {
-          right.push(Arr[i])
+          right.push(e)
         }
       }
 
-      // 继续对左边数组以及右边数组进行递归快排，并使用concat将三个数组连接起来
-      return quickSort(left).concat([pivot], quickSort(right))
+      return quickSort(left).concat(midst, quickSort(right))
     }
 
     const res = quickSort(sortList)
     console.log('快排结果：', res)
 
     const sortList1 = [3, 7, 38, 64, 16, 9, 27]
-    console.log('快排2结果为：', quickSort1(sortList1))
+    console.log('快排2结果为：', quickSort(sortList1))
   </script>
 </body>
 </html>
