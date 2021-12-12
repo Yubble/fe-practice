@@ -20,6 +20,7 @@
 
       const 找零钱方法 = 总金额 => {
         if (!总金额) {
+          console.log(`总金额为${总金额}，返回空数组`)
           return []
         }
 
@@ -28,37 +29,37 @@
         //   return 缓存器[总金额]
         // }
 
-        let 最小值集合 = [], 新最小值集合, 新总金额
+        let 递归内硬币集合 = [], 新最小值集合, 新总金额
         for (let 当前硬币面值下标=0; 当前硬币面值下标<硬币集合.length; 当前硬币面值下标++) {
-          // 获取单个硬币
-          const 单个硬币 = 硬币集合[当前硬币面值下标]
-          console.log(`单个硬币 is ${单个硬币}，总金额 is ${总金额}`)
-          新总金额 = 总金额 - 单个硬币
-          // 如果当前总金额减去单个硬币后并不小于零，那么证明还有’子问题‘需要被解析
+          // 获取单个硬币值
+          const 单个硬币值 = 硬币集合[当前硬币面值下标]
+          console.log(`单个硬币值 is ${单个硬币值}，总金额 is ${总金额}`)
+          新总金额 = 总金额 - 单个硬币值
+          // 如果当前总金额减去单个硬币值后并不小于零，那么证明还有’子问题‘需要被解析
+          console.log('新总金额 is ', 新总金额)
           if (新总金额 >= 0) {
-            console.log('新总金额 is ', 新总金额)
             新最小值集合 = 找零钱方法(新总金额)
             console.log('递归结束，新最小值集合 is ', 新最小值集合)
           }
-          console.log('新最小值集合长度 is ', 新最小值集合.length)
-          console.log('最小值集合长度 is ', 最小值集合.length)
+          console.log('递归内硬币集合 is ', 递归内硬币集合)
           if (
-            新总金额 >= 0 &&
-            (新最小值集合.length < 最小值集合.length-1 || !最小值集合.length) &&
+            (新最小值集合.length < 递归内硬币集合.length-1 || !递归内硬币集合.length) &&
             (新最小值集合.length || !新总金额)
           ) {
-            console.log('最小值集合：', [单个硬币].concat(新最小值集合))
-            最小值集合 = [单个硬币].concat(新最小值集合)
+            console.log('对递归内硬币集合开始赋值')
+            递归内硬币集合 = [单个硬币值].concat(新最小值集合)
+            console.log('递归内硬币集合赋值完毕 is ', 递归内硬币集合)
           }
         }
-        // return (缓存器[总金额] = 最小值集合)
-        return 最小值集合
+        // return (缓存器[总金额] = 递归内硬币集合)
+        console.log('循环结束，递归内最小值集合 is ', 递归内硬币集合)
+        return 递归内硬币集合
       }
 
       return 找零钱方法
     }
 
-    const changes = coinChange([1])(11)
+    const changes = coinChange([1, 2, 5])(11)
     console.log('changes is ', changes)
   </script>
 </body>

@@ -71,7 +71,7 @@
       tree.forEach((obj) => {
         deepResult.push(obj.id)
         if (obj.children) {
-          sequence(obj.children)
+          deepSequence(obj.children)
         }
       })
       return deepResult
