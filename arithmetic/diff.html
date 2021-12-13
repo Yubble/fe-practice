@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     * vnode:
+     * {
+     *  el: div, // 对真实节点的引用，本例中就是document.querySelector('#id.classA')
+     *  tagName: 'DIV', // 节点标签
+     *  sel: 'div#v.classA',  // 节点的选择器
+     *  data: null, // 一个存储节点属性的对象，对应节点的el[prop]属性，例如onclick, style
+     *  children: [], // 存储子节点的数组，每个子节点也是vnode结构
+     *  text: null  // 如果是文本节点，对应文本节点的textContent，否则为null
+     * }
+    */
+    const sameVnode = (oldVnode, vnode) => {
+      return vnode.key === oldVnode.key && vnode.sel === oldVnode.sel
+    }
+
+    const patchVnode = (oldVnode, vnode) => {
+      const el = vnode.el = oldVnode.el
+      let i, oldCh = oldVnode.children, ch = vnode.children
+      if (oldVnode === vnode) return
+      if (oldVnode.text !== null && vnode.text !== null && oldVnode.text !== vnode.text) {
+        api.setTextContent(el, vnode.text)
+      } else {
+        updateEle(el, vnode, oldVnode)
+        if (oldCh && ch && oldCh !== ch) {
+          updateChildren(el, oldCh, ch)
+        } else if (ch) {
+          createEle(vnode)
+        } else if (oldCh) {
+          api.removeChildren(el)
+        }
+      }
+    }
+
+    function patch (oldValue, vnode) {
+      if (sameVnode(oldValue, vnode)) {
+        // 如果值得比较，将使用patchVnode方法对新老node节点进行比较
+        patchVnode(oldVnode, vnode)
+      } else {
+        // 如果不值得比较，则将新的vnode直接替换掉老vnode
+        const oEl = oldValue.el
+        let parentEle = api.parentNode(oEl)
+        createEle(vnode)
+        if (parentEle !== null) {
+          api.insertBefore(parentEle, vnode.el, api.nextSibling(oEl))
+          api.removeChild(parentEle, oldVnode.el)
+          oldVnode = null
+        }
+      }
+      return vnode
+    }
+  </script>
+</body>
+</html>
