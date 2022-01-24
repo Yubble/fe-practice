@@ -33,7 +33,7 @@ function runner(gen) {
 
 runner(function* () {
   const result1 = yield doTask1('task1 params')
-  console.log(result1)
+  console.log('result1 is ', result1)
   const result2 = yield doTask2('task2 params')
-  console.log(result2)
+  console.log('result2 is ', result2)
 })

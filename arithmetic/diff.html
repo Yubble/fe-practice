@@ -19,8 +19,78 @@
      *  text: null  // 如果是文本节点，对应文本节点的textContent，否则为null
      * }
     */
+    // 需要比较两个虚拟Dom节点是否值得比较，比如一个是span，一个是p，又或者一个class是A，一个class是B，也不值得比较
     const sameVnode = (oldVnode, vnode) => {
       return vnode.key === oldVnode.key && vnode.sel === oldVnode.sel
+    }
+
+    const updateChildren = (parentElm, oldCh, newCh) => {
+      let oldStartIdx = 0, newStartIdx = 0
+      let oldEndIdx = oldCh.length - 1
+      let oldStartVnode = oldCh[0]
+      let oldEndVnode = oldCh[oldEndIdx]
+      let newEndIdx = newCh.length - 1
+      let newStartVnode = newCh[0]
+      let newEndVnode = newCh[newEndIdx]
+      let oldKeyToIdx
+      let idxInOld
+      let elmToMove
+      let before
+      while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+        if (oldStartVnode == null) {
+          oldStartVnode = oldCh[++oldStartIdx]
+        } else if (oldEndVnode == null) {
+          oldEndVnode = oldCh[--oldEndIdx]
+        } else if (newStartVnode == null) {
+          newStartVnode = newCh[++newStartIdx]
+        } else if (newEndVnode == null) {
+          newEndVnode = newCh[--newEndIdx]
+        } else if (sameVnode(oldStartVnode, newStartVnode)) {
+          patchVnode(oldStartVnode, newStartVnode)
+          oldStartVnode = oldCh[++oldStartIdx]
+          newStartVnode = newCh[++newStartIdx]
+        } else if (sameVnode(oldEndVnode, newEndVnode)) {
+          patchVnode(oldEndVnode, newEndVnode)
+          oldEndVnode = oldCh[--oldEndIdx]
+          newEndVnode = newCh[++newEndIdx]
+        } else if (sameVnode(oldStartVnode, newEndVnode)) {
+          patchVnode(oldStartVnode, newEndVnode)
+          api.insertBefore(parentElm, oldStartVnode.el, api.nextSibling(oldEndVnode.el))
+          oldStartVnode = oldCh[++oldStartIdx]
+          newEndVnode = newCh[--newEndIdx]
+        } else if (sameVnode(oldEndVnode, newStartVnode)) {
+          patchVnode(oldEndVnode, newStartVnode)
+          api.insertBefore(parentElm, oldEndVnode.el, oldStartVnode.el)
+          oldEndVnode = oldCh[--oldEndIdx]
+          newStartVnode = newCh[++newStartIdx]
+        } else {
+          // 使用key时的比较
+          if (oldKeyToIdx === undefined) {
+            oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)  // 有key生成index表
+          }
+          idxInOld = oldKeyToIdx[newStartVnode.key]
+          if (!idxInOld) {
+            api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)
+            newStartVnode = newCh[++newStartIdx]
+          } else {
+            elmToMove = oldCh[idx]
+            if (elmToMove.sel !== newStartVnode.sel) {
+              api.insertBefore(parentElm, createEle(newStartVnode).el, oldStartVnode.el)
+            } else {
+              patchVnode(elmToMove, newStartVnode)
+              oldCh[idxInOld] = null
+              api.insertBefore(parentElm, elmToMove.el, oldStartVnode.el)
+            }
+            newStartVnode = newCh[++newStartIdx]
+          }
+        }
+      }
+      if (oldStartIdx > oldEndIdx) {
+        before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].el
+        addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx)
+      } else if (newStartIdx > newEndIdx) {
+        removeVnode(parentElm, oldCh, oldStartIdx, oldEndIdx)
+      }
     }
 
     const patchVnode = (oldVnode, vnode) => {

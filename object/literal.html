@@ -1,0 +1,59 @@
+<!--
+ * @Name: 装饰者模式_树
+ * @Description: 编写装饰者模式实例
+ * @Author: 刘燕保
+ * @Date: 2022-01-16 22:10:51
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let tree = {}
+    tree.decorate = function() {
+      console.log('tree')
+    }
+
+    tree.getDecorator = function(deco) {
+      tree[deco].prototype = this
+      return new tree[deco]
+    }
+
+    tree.Red = function() {
+      this.decorate = function() {
+        this.Red.prototype.decorate()
+        console.log('red')
+      }
+      this.name = 'red'
+    }
+
+    tree.Blue = function() {
+      this.decorate = function() {
+        this.Blue.prototype.decorate()
+        console.log('blue')
+      }
+      this.name = 'blue'
+    }
+
+    tree.Angel = function() {
+      this.decorate = function() {
+        this.Angel.prototype.decorate()
+        console.log('angel')
+      }
+      this.name = 'angel'
+    }
+
+    tree = tree.getDecorator('Blue')
+    tree = tree.getDecorator('Angel')
+    tree = tree.getDecorator('Red')
+    tree.decorate()
+
+    // 奇怪的装饰器写法
+  </script>
+</body>
+</html>

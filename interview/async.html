@@ -14,33 +14,36 @@
 </head>
 <body>
   <script>
-    async function async1() {     
-        console.log("async1 start");      
-        const res = await async2();     // 不论返回的是否是promise实例，都会先执行await 后面的函数，但await下面的方法会放在微任务中执行
-        console.log('res is ', res)
-        console.log("async1 end");   
-    }  
+    async function async1() {
+      console.log("async1 start");
+      const res = await async2(); // 不论返回的是否是promise实例，都会先执行await 后面的函数，但await下面的方法会放在微任务中执行
+      console.log('res is ', res)
+      console.log("async1 end");
+    }
 
-    async function async2() {
-      console.log( 'async2');
+    async function async2() {
+      console.log('async2');
       return Promise.resolve(123)
-    } 
+    }
 
-    console.log("script start");  
-    setTimeout(function () {      
-        console.log("settimeout");  
+    console.log("script start");
+    setTimeout(function () {
+      console.log("settimeout");
+      new Promise((resolve, reject) => {
+        resolve('promise add')
+      }).then(console.log)
     },0);
 
-    async1();  
+    async1();
 
-    new Promise(function (resolve) {      
-        console.log("promise1");      
-        resolve();  
-    }).then(function () {      
-        console.log("promise2"); 
-    }); 
+    new Promise(function (resolve) {
+        console.log("promise1");
+        resolve();
+    }).then(function () {
+        console.log("promise2");
+    });
 
-    console.log('script end');  
+    console.log('script end');
 
     /**
      * script start
