@@ -51,16 +51,15 @@
     // 方式一
     // button.click()
     // 方式二
-    // setTimeout(() => {
-    //     handle1()
-    // })
-    // setTimeout(() => {
-    //     handle2()
-    // })
+    setTimeout(() => {
+        handle1()
+    })
+    setTimeout(() => {
+        handle2()
+    })
     // 方式三：通过页面点击
-    const btn1 = document.getElementById('btn1')
-    console.log('btn1 is ', btn1)
-    btn1.addEventListener('click', handle1).addEventListener('click', handle2)
+    // const btn1 = document.getElementById('btn1')
+    // btn1.addEventListener('click', handle1).addEventListener('click', handle2)
   </script>
 </body>
 </html>
