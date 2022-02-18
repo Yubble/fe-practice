@@ -1,0 +1,51 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2022-02-09 15:58:07
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const eventBus = function() {
+      this.events = {}
+    }
+
+    eventBus.prototype.on = function(eventName, fn) {
+      this.events[eventName] = []
+      this.events[eventName].push(fn)
+    }
+
+    eventBus.prototype.emit = function(eventName, data) {
+      this.events[eventName].map(fn => fn(data))
+    }
+
+    const eb = new eventBus()
+
+    const defaultConfig = () => {
+      return new Promise((resolve, reject) => {
+        eb.on('test', state => {
+          resolve(state)
+        })
+      })
+    }
+
+    // eb.on('test', state => {
+    //   console.log(state)
+    // })
+
+    defaultConfig().then(data => {
+      console.log('运行 data is ', data)
+    })
+
+    eb.emit('test', '监听到数据')
+  </script>
+</body>
+</html>

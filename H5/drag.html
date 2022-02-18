@@ -1,0 +1,67 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2022-02-18 11:46:50
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      height: 1500px;
+      overflow: hidden;
+      width: auto;
+    }
+    .rightArea {
+      float: right;
+      height: 800px;
+      width: 600px;
+      background: green;
+    }
+    .leftArea {
+      float: left;
+    }
+    .leftArea img {
+      width: auto;
+      width: 68px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="leftArea">
+      <img id="img" src="./weather.jpeg" alt="">
+    </div>
+    <div id="right" class="rightArea"></div>
+  </div>
+  <script>
+    const img = document.getElementById('img')
+    const right = document.getElementById('right')
+    
+    img.ondragstart = event => {
+      console.log('开始拖拽')
+      event.dataTransfer.setData('img-key', 'dragInfo')
+    }
+
+    img.ondragend = event => {
+      console.log('拖拽结束')
+    }
+
+    right.ondragover = event => {
+      event.preventDefault()
+    }
+
+    right.ondrop = event => {
+      event.preventDefault()
+      console.log('触发drop')
+      const value = event.dataTransfer.getData('img-key')
+      console.log('value is ', value)
+    }
+  </script>
+</body>
+</html>

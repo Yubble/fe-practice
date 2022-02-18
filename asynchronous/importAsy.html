@@ -1,0 +1,34 @@
+<!--
+ * @Name: 
+ * @Description: 
+ * @Author: 刘燕保
+ * @Date: 2022-01-28 10:58:02
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const sub = () => {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve('sub is here')
+        }, 2000)
+      })
+    }
+
+    const demo = async () => {
+      const txt = await sub()
+      console.log(txt)
+    }
+
+
+    demo()
+  </script>
+</body>
+</html>
