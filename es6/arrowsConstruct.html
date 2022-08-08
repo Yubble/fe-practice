@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 箭头函数无法创建出构造函数
+        // const F1 = (name) => {
+        //     this.name = name
+        // }
+
+        const F1 = function (name) {
+            this.name = name
+        }
+
+        F1.prototype.sayH = function() {
+            console.log('name is ', this.name)
+        }
+
+        const f1 = new F1('dfd')
+        console.log('--- f1 is ---', f1)
+        f1.sayH()
+    </script>
+</body>
+</html>

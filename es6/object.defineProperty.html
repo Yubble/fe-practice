@@ -23,6 +23,7 @@
           console.log('读取到了，值为：', val)
         },
         set: newVal => {
+          fs++
           console.log('设置了新值为：', newVal)
         }
       })
@@ -30,9 +31,13 @@
 
     def(arr, 0)
 
+    const obj1 = { a: 3 }
+    def(obj1, 'b')
+    console.log('---- obj1 b ----', obj1.b)
+
     // arr[0] // 可以监听到数组下表为0的访问
     // arr.shift()  // 可以监听到，新值为6
-    arr.push(6) // 监听不到变化
+    // arr.push(6) // 监听不到变化
   </script>
 </body>
 </html>

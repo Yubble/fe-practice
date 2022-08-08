@@ -11,7 +11,7 @@
         const m = new Map()
         m.set('Adam', {
             name: 12,
-            sdfo: 'nnn'
+            sdfo: new Map([['nnn', 0], ['fss', 'jjj']])
         })
         m.set('nfow', {
             name: 11,
@@ -23,6 +23,8 @@
         })
 
         console.log(Array.from(m))
+        console.log(m)
+        console.log('---- 当前是否有nnn ---', m.has('nnn'))
     </script>
 </body>
 </html>
