@@ -20,13 +20,13 @@
             }
         }
 
-        obj.fn()
+        obj.fn()    // window
 
         function fn() {
             var a = obj.fn
-            a.call(this)
+            a.call(this)    // {b: 1}
         }
-        fn.call({b: 1})
+        fn.call({b: 1}) // {b: 1}
     </script>
 </body>
 </html>
